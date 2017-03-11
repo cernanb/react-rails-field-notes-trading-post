@@ -3,11 +3,11 @@ class Auth
   def self.create_token(user)
     payload = { data: JSON.parse(user.to_json) }
 
-    JWT.encode( payload, 'secret', 'HS256')
+    JWT.encode( payload, ENV['AUTH_SECRET'], ENV['AUTH_HASH_ALGO'])
   end
 
   def self.decode_token(token)
-    JWT.decode(token, 'secret', true, { :algorithm => 'HS256' })
+    JWT.decode(token, ENV['AUTH_SECRET'], true, { :algorithm => ENV['AUTH_HASH_ALGO'] })
   end
 
 end
