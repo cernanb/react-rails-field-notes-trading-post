@@ -6,8 +6,8 @@ class Auth
     JWT.encode( payload, 'secret', 'HS256')
   end
 
-  def self.decode_token
-
+  def self.decode_token(token)
+    JWT.decode(token, 'secret', true, { :algorithm => 'HS256' })
   end
 
 end
