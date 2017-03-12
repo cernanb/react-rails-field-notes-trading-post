@@ -5,7 +5,7 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    @current_user ||= User.find_by_id(auth.first["user"]["id"])
+    @current_user ||= User.find(auth.first["user"]["id"])
   end
 
   private
