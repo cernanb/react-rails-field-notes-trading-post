@@ -1,11 +1,11 @@
 class ApplicationController < ActionController::API
 
   def logged_in?
-    !!current_user
+    !!now_user
   end
 
-  def current_user
-    @current_user ||= User.find(auth.first["user"]["id"])
+  def now_user
+    @now_user ||= User.find(auth.first["user"]["id"])
   end
 
   private
