@@ -4,19 +4,29 @@ import App from './App';
 import './index.css';
 import {Router, Route, IndexRoute, browserHistory} from 'react-router'
 import About from './components/About'
-import Topics from './components/Topics'
 import Home from './components/Home'
 import Signup from './components/Signup'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import rootReducer from './reducers/index'
 
+const store = createStore(
+  rootReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  applyMiddleware(thunk),
+)
 
 
 ReactDOM.render(
-  <Router history={browserHistory}>
-      <Route path="/" component={App}>
-        <IndexRoute component={Home} />
-        <Route path="/about" component={About}/>
-        <Route path="/signup" component={Signup}/>
-      </Route>
-  </Router>,
+  <Provider store={store}>
+    <Router history={browserHistory}>
+        <Route path="/" component={App}>
+          <IndexRoute component={Home} />
+          <Route path="/about" component={About}/>
+          <Route path="/signup" component={Signup}/>
+        </Route>
+    </Router>
+  </Provider>,
   document.getElementById('root')
 );
