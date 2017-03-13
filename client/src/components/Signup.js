@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import AuthService from '../services/authService'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { signup } from '../actions/authActions'
 
-export default class Signup extends Component {
+class Signup extends Component {
   constructor(){
     super()
     this.input = {}
@@ -11,6 +13,8 @@ export default class Signup extends Component {
     e.preventDefault()
 
     const { input } = this
+    const { signup } = this.props.actions
+
     let user = {}
 
     for (let key of Object.keys(input)) {
@@ -20,7 +24,7 @@ export default class Signup extends Component {
         continue
       }
     }
-    AuthService.signup(user)
+    return signup(user)
   }
 
   render() {
@@ -36,3 +40,13 @@ export default class Signup extends Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: bindActionCreators({
+            signup,
+        }, dispatch)
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Signup)

@@ -1,7 +1,7 @@
 const signup = (user) => {
   const newUser = {user}
 
-  fetch(`http://localhost:3001/api/v1/signup`, {
+  return fetch(`http://localhost:3001/api/v1/signup`, {
     method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -10,6 +10,8 @@ const signup = (user) => {
       },
       body: JSON.stringify(newUser)
   })
+  .then(response => response.json())
+  .then(data => data)
 }
 
 
