@@ -15,6 +15,8 @@ gem 'jwt'
 gem 'pry'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'foreman'
+gem 'rack-cors', :require => 'rack/cors'
+
 
 
 
