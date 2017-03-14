@@ -2,11 +2,25 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { signup } from '../actions/authActions'
+import AuthService from '../services/authService'
 
 class Signup extends Component {
   constructor(){
     super()
     this.input = {}
+  }
+
+  componentWillMount() {
+    console.log(AuthService.isAuthenticated())
+    if (AuthService.isAuthenticated()) {
+      this.props.router.push('/')
+    }
+  }
+
+  componentDidUpdate() {
+    if (AuthService.isAuthenticated()) {
+      this.props.router.push('/')
+    }
   }
 
   handleSubmit(e) {
