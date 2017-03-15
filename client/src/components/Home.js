@@ -1,9 +1,19 @@
 import React from 'react'
+import AuthService from '../services/authService'
+import { connect } from 'react-redux'
 
-const Home = () => (
+const Home = (props) => (
   <div>
-    <h1>Home</h1>
+    {console.log(props)}
+    {AuthService.isAuthenticated() ? <h1>Welcome {props.profile.username}</h1> : <h1>Please login or signup</h1>}
   </div>
 )
 
-export default Home
+const mapStateToProps = (state) => {
+
+  return {
+    profile: state.auth.profile
+  }
+}
+
+export default connect(mapStateToProps)(Home)

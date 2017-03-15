@@ -14,7 +14,22 @@ const signup = (user) => {
   .then(data => data)
 }
 
+const storeToken = (token) => {
+  localStorage.token = token
+}
+
+const isAuthenticated = () => !!localStorage.token
+
+const logout = () => {
+
+  localStorage.removeItem('token')
+
+}
+
 
 export default {
-  signup
+  signup,
+  storeToken,
+  isAuthenticated,
+  logout
 }
