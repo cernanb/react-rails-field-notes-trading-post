@@ -20,9 +20,16 @@ const storeToken = (token) => {
 
 const isAuthenticated = () => !!localStorage.token
 
+const logout = () => {
+
+  localStorage.removeItem('token')
+
+}
+
 
 export default {
   signup,
   storeToken,
-  isAuthenticated
+  isAuthenticated,
+  logout
 }

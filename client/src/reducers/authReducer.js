@@ -2,9 +2,10 @@ export default (state={ profile: { } }, action ) => {
 
   switch(action.type) {
     case 'LOGGED_IN':
-      console.log('inside logged in')
       const { profile } = action
       return Object.assign({}, state, {profile})
+    case 'LOGGED_OUT':
+      return Object.assign({}, state, {profile: action.profile})
     default:
       return state
 

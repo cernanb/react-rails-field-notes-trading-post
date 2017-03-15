@@ -20,3 +20,18 @@ export const signup = (user) => {
             .catch(err => err)
     }
 }
+
+export const logout = () => {
+
+  return (dispatch) => {
+
+    AuthService.logout()
+
+    dispatch({
+      type: 'LOGGED_OUT',
+      profile: {}
+    })
+
+  }
+
+}

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { signup } from '../actions/authActions'
+import { login } from '../actions/authActions'
 import AuthService from '../services/authService'
 
-class Signup extends Component {
+class Login extends Component {
   constructor(){
     super()
     this.input = {}
@@ -26,7 +26,7 @@ class Signup extends Component {
     e.preventDefault()
 
     const { input } = this
-    const { signup } = this.props.actions
+    const { login } = this.props.actions
 
     let user = {}
 
@@ -37,16 +37,14 @@ class Signup extends Component {
         continue
       }
     }
-    return signup(user)
+    return login(user)
   }
 
   render() {
-    {console.log('render in signup')}
     return (
       <div>
         <form onSubmit={e => this.handleSubmit(e)}>
           <input type="text" ref={input => this.input.username = input} placeholder="username" /> <br /> <br />
-          <input type="text" ref={input => this.input.email = input} placeholder="email" /> <br /> <br />
           <input type="password" ref={input => this.input.password = input} placeholder="password" />
           <input type="submit" />
         </form>
@@ -64,7 +62,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         actions: bindActionCreators({
-            signup,
+            login,
         }, dispatch)
     }
 }
