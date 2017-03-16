@@ -14,6 +14,22 @@ const signup = (user) => {
   .then(data => data)
 }
 
+const login = (user) => {
+  const loggedInUser = {user}
+
+  return fetch(`http://localhost:3001/api/v1/login`, {
+    method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify(loggedInUser)
+  })
+  .then(response => response.json())
+  .then(data => data)
+}
+
 const storeToken = (token) => {
   localStorage.token = token
 }
@@ -31,5 +47,6 @@ export default {
   signup,
   storeToken,
   isAuthenticated,
-  logout
+  logout,
+  login
 }

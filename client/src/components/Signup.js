@@ -41,7 +41,6 @@ class Signup extends Component {
   }
 
   render() {
-    {console.log('render in signup')}
     return (
       <div>
         <form onSubmit={e => this.handleSubmit(e)}>
