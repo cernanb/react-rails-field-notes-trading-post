@@ -24,7 +24,7 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-
+    
     const { input } = this
     const { login } = this.props.actions
 
@@ -67,4 +67,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Signup)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
