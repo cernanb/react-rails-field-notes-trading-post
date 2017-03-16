@@ -15,7 +15,6 @@ const signup = (user) => {
 }
 
 const login = (user) => {
-  const loggedInUser = {user}
 
   return fetch(`http://localhost:3001/api/v1/login`, {
     method: 'POST',
@@ -24,7 +23,7 @@ const login = (user) => {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       },
-      body: JSON.stringify(loggedInUser)
+      body: JSON.stringify(user)
   })
   .then(response => response.json())
   .then(data => data)

@@ -21,7 +21,7 @@ export const signup = (user) => {
 }
 
 export const login = (user) => {
-  console.log(user)
+  
   return (dispatch) => {
       AuthService.login(user)
         .then(data => {
