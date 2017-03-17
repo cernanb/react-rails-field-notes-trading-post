@@ -9,7 +9,6 @@ const Home = (props) => (
 )
 
 const mapStateToProps = (state) => {
-
   return {
     profile: state.auth.profile
   }

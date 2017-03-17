@@ -3,14 +3,16 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import './index.css';
 import {Router, Route, IndexRoute, browserHistory} from 'react-router'
-import About from './components/About'
-import Home from './components/Home'
-import Signup from './components/Signup'
-import Login from './components/Login'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from './reducers/index'
+
+import About from './components/About'
+import Home from './components/Home'
+import Signup from './components/Signup'
+import Login from './components/Login'
+import Notebooks from './components/Notebooks'
 
 const store = createStore(
   rootReducer,
@@ -27,6 +29,7 @@ ReactDOM.render(
           <Route path="/about" component={About}/>
           <Route path="/signup" component={Signup}/>
           <Route path="/login" component={Login}/>
+          <Route path="/notebooks" component={Notebooks}/>
         </Route>
     </Router>
   </Provider>,
