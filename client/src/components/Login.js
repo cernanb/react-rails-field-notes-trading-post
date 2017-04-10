@@ -24,7 +24,7 @@ class Login extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    
+
     const { input } = this
     const { login } = this.props.actions
 
@@ -43,6 +43,7 @@ class Login extends Component {
   render() {
     return (
       <div>
+        <h1>{this.props.auth.err_message}</h1>
         <form onSubmit={e => this.handleSubmit(e)}>
           <input type="text" ref={input => this.input.username = input} placeholder="username" /> <br /> <br />
           <input type="password" ref={input => this.input.password = input} placeholder="password" />
