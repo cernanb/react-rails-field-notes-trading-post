@@ -1,4 +1,5 @@
 const signup = (user) => {
+
   const newUser = {user}
 
   return fetch(`http://localhost:3001/api/v1/signup`, {
@@ -27,10 +28,15 @@ const login = (user) => {
   })
   .then(response => response.json())
   .then(data => data)
+  .catch(err => err)
 }
 
 const storeToken = (token) => {
   localStorage.token = token
+}
+
+const storeProfile = (profile) => {
+  localStorage.profile = JSON.stringify(profile)
 }
 
 const isAuthenticated = () => !!localStorage.token
@@ -45,6 +51,7 @@ const logout = () => {
 export default {
   signup,
   storeToken,
+  storeProfile,
   isAuthenticated,
   logout,
   login
