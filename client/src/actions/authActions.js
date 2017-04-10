@@ -9,6 +9,7 @@ export const signup = (user) => {
         const { profile, token } = data
 
         AuthService.storeToken(token)
+        AuthService.storeProfile(profile)
 
         dispatch({
           type: 'LOGGED_IN',
@@ -21,14 +22,15 @@ export const signup = (user) => {
 }
 
 export const login = (user) => {
-  
+
   return (dispatch) => {
       AuthService.login(user)
         .then(data => {
-
+          if (data.errors) throw new Error(data.errors.message)
           const { profile, token } = data
 
           AuthService.storeToken(token)
+          AuthService.storeProfile(profile)
 
           dispatch({
             type: 'LOGGED_IN',
@@ -36,7 +38,13 @@ export const login = (user) => {
           })
 
         })
-        .catch(err => err)
+        .catch(err => {
+          console.log(err)
+          dispatch({
+            type: 'USER_NOT_FOUND',
+            err
+          })
+        })
   }
 }
 
