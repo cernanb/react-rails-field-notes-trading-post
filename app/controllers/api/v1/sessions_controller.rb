@@ -6,7 +6,7 @@ class Api::V1::SessionsController < ApplicationController
       user_object = { id: user.id, username: user.username, email: user.email }
       render json: { token: Auth.create_token(user_object), profile: user_object }
     else
-      render json: { errors: { message: 'Username or Password is incorrect' } }
+      render json: { errors: { message: 'Username or Password is incorrect' } }, status: 422
     end
   end
 
