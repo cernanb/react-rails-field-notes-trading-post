@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 import AuthService from '../services/authService'
 import { getNotebooks } from '../actions/notebookActions'
 import Notebook from './Notebook'
@@ -19,9 +20,18 @@ class Notebooks extends Component {
     }
 
     render() {
+      const { children, notebooks } = this.props
       return (
         <div>
-          { this.props.notebooks.map(notebook => <Notebook key={notebook.id} {...notebook} />) }
+          {
+            !children ?
+            <div>
+              {notebooks.map(notebook => <p><Link to={{ pathname: `/notebooks/${notebook.id}`}}>{notebook.name}</Link></p>)}
+            </div> :
+            <div>
+              {children}
+            </div>
+          }
         </div>
       )
     }
