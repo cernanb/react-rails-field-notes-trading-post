@@ -26,7 +26,7 @@ class Notebooks extends Component {
           {
             !children ?
             <div>
-              {notebooks.map(notebook => <p><Link to={{ pathname: `/notebooks/${notebook.id}`}}>{notebook.name}</Link></p>)}
+              {notebooks.map(notebook => <p key={notebook.id}><Link to={{ pathname: `/notebooks/${notebook.id}`}}>{notebook.name}</Link></p>)}
             </div> :
             <div>
               {children}

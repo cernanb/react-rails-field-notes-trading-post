@@ -12,3 +12,16 @@ export const getNotebooks = () => {
       })
   }
 }
+
+export const getNotebook = (notebookId) => {
+
+  return (dispatch) => {
+    NotebookService.fetchNotebook(notebookId)
+      .then(data => {
+        dispatch({
+          type: 'NOTEBOOK_RECEIVED',
+          notebook: data
+        })
+      })
+  }
+}
