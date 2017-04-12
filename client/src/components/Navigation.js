@@ -6,7 +6,7 @@ import AuthService from '../services/authService'
 import { css } from 'glamor'
 import NavLink from './NavLink'
 
-let nav = css({ color: 'red', display: 'inline-block', width: '100%', 'textAlign': 'left'})
+let nav = css({ color: 'red', width: '100%', 'textAlign': 'center', background: '#F17F42'})
 let navLink = css({display: 'inline-block'})
 
 const Navigation = (props) => (
