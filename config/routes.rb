@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       post '/signup', to: 'users#signup'
       post '/login', to: 'sessions#login'
-      resources :notebooks, only: [:index, :show]
+      resources :notebooks, only: [:index, :show, :create]
     end
   end
 end

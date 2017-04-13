@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { login } from '../actions/authActions'
 import AuthService from '../services/authService'
+import buttonCss from '../buttonCss'
 
 class Login extends Component {
   constructor(){
@@ -46,8 +47,8 @@ class Login extends Component {
         <h1>{this.props.auth.err_message}</h1>
         <form onSubmit={e => this.handleSubmit(e)}>
           <input type="text" ref={input => this.input.username = input} placeholder="username" /> <br /> <br />
-          <input type="password" ref={input => this.input.password = input} placeholder="password" />
-          <input type="submit" />
+          <input type="password" ref={input => this.input.password = input} placeholder="password" /> <br /> <br />
+          <input {...buttonCss} type="submit" />
         </form>
       </div>
     )
