@@ -14,6 +14,7 @@ import Signup from './components/Signup'
 import Login from './components/Login'
 import Notebooks from './components/Notebooks'
 import Notebook from './components/Notebook'
+import NewNotebook from './components/NewNotebook'
 
 const store = createStore(
   rootReducer,
@@ -30,6 +31,7 @@ ReactDOM.render(
           <Route path="/about" component={About}/>
           <Route path="/signup" component={Signup}/>
           <Route path="/login" component={Login}/>
+          <Route path="/notebooks/new" component={NewNotebook}/>
           <Route path="/notebooks" component={Notebooks}>
             <Route path="/notebooks/:id" component={Notebook} />
           </Route>

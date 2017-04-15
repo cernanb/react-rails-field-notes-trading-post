@@ -19,7 +19,24 @@ const fetchNotebook = (id) => {
     .then(data => data)
 }
 
+const createNotebook = (notebook) => {
+  const newNotebook = Object.assign({}, {notebook: notebook})
+  
+  return fetch(`http://localhost:3001/api/v1/notebooks`, {
+    headers: {
+      Authorization: `${localStorage.token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify(newNotebook)
+  })
+    .then(res => res.json())
+    .then(data => data)
+}
+
 export default {
   fetchNotebooks,
-  fetchNotebook
+  fetchNotebook,
+  createNotebook
 }

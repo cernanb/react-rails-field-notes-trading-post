@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import AuthService from '../services/authService'
 import { getNotebooks } from '../actions/notebookActions'
-import Notebook from './Notebook'
-
 
 class Notebooks extends Component {
 

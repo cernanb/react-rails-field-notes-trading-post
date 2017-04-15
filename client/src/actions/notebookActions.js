@@ -1,4 +1,5 @@
 import NotebookService from '../services/notebookService'
+import { browserHistory } from 'react-router'
 
 export const getNotebooks = () => {
 
@@ -22,6 +23,20 @@ export const getNotebook = (notebookId) => {
           type: 'NOTEBOOK_RECEIVED',
           notebook: data
         })
+      })
+  }
+}
+
+export const createNotebook = (notebook) => {
+
+  return (dispatch) => {
+    NotebookService.createNotebook(notebook)
+      .then(data => {
+        dispatch({
+          type: 'NOTEBOOK_CREATED',
+          notebook: data
+        })
+        browserHistory.push('/notebooks')
       })
   }
 }
