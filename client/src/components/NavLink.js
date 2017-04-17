@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { css } from 'glamor'
 
-var linkCSS = css({
+const linkCSS = css({
   'textDecoration': 'none',
   display: 'inline-block',
   color: 'ghostwhite',
