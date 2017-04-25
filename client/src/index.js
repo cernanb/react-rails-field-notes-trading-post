@@ -15,6 +15,8 @@ import Login from './components/Login'
 import Notebooks from './components/Notebooks'
 import Notebook from './components/Notebook'
 import NewNotebook from './components/NewNotebook'
+import Details from './components/Details'
+import Contact from './components/Contact'
 
 const store = createStore(
   rootReducer,
@@ -28,7 +30,10 @@ ReactDOM.render(
     <Router history={browserHistory}>
         <Route path="/" component={App}>
           <IndexRoute component={Home} />
-          <Route path="/about" component={About}/>
+          <Route path="/about" component={About}>
+            <Route path="/about/details" component={Details} />
+            <Route path="/about/contact" component={Contact} />
+          </Route>
           <Route path="/signup" component={Signup}/>
           <Route path="/login" component={Login}/>
           <Route path="/notebooks/new" component={NewNotebook}/>
