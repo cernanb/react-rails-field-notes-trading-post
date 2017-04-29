@@ -16,8 +16,17 @@ const linkCSS = css({
   }
 })
 
+const imageCSS = css({
+   
+})
+
 const notebookCSS = css({
   width: '33%'
+})
+
+const notebookCardTitle = css({
+  marginBottom: '-45px',
+  position: 'relative'
 })
 
 const notebookContainerCSS = css({
@@ -45,14 +54,16 @@ class Notebooks extends Component {
           {
             !children ?
             <div {...notebookContainerCSS}>
-              {
-                notebooks.map(notebook => <p {...notebookCSS} key={notebook.id}>
-                    <Link {...linkCSS} to={{ pathname: `/notebooks/${notebook.id}`}}>
-                      {notebook.name}
-                    </Link>
-                  </p>)
-              }
-            </div> :
+        {
+          notebooks.map(notebook => 
+            <div {...notebookCSS} key={notebook.id}>
+              <Link {...linkCSS} to={{ pathname: `/notebooks/${notebook.id}`}}>
+                <p {...notebookCardTitle}>{notebook.edition}</p>
+                <img  {...imageCSS} src="https://fieldnotes.imgix.net/images/products/FNC-33-Black-Ice-A.jpg?auto=format&fit=crop&h=360&ixlib=php-1.1.0&q=55&w=400&s=00915ae492f9576f67bfa75e8fa70bcc" />
+              </Link>
+            </div>)
+        }
+      </div> :
             <div>
               {children}
             </div>

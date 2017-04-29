@@ -20,6 +20,15 @@ const linkCSS = css({
   }
 })
 
+const imageCSS = css({
+  
+})
+
+const notebookCardTitle = css({
+  marginBottom: '-45px',
+  position: 'relative'
+})
+
 const notebookContainerCSS = css({
   display: 'flex',
   'flexDirection': 'row',
@@ -43,11 +52,13 @@ class UserNotebooks extends Component {
     return (
       <div {...notebookContainerCSS}>
         {
-          notebooks.map(notebook => <p {...notebookCSS} key={notebook.id}>
+          notebooks.map(notebook => 
+            <div {...notebookCSS} key={notebook.id}>
               <Link {...linkCSS} to={{ pathname: `/notebooks/${notebook.id}`}}>
-                {notebook.name}
+                <p {...notebookCardTitle}>{notebook.edition}</p>
+                <img  {...imageCSS} src="https://fieldnotes.imgix.net/images/products/FNC-32-Lunacy-A.jpg?auto=format&fit=crop&h=360&ixlib=php-1.1.0&q=55&w=400&s=0332b5fe718344668674db1c08d05741" />
               </Link>
-            </p>)
+            </div>)
         }
       </div>
     )
