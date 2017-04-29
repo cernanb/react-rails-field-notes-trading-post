@@ -4,6 +4,9 @@ Rails.application.routes.draw do
       post '/signup', to: 'users#signup'
       post '/login', to: 'sessions#login'
       resources :notebooks, only: [:index, :show, :create]
+      resources :users do
+        resources :notebooks, only: [:index]
+      end
     end
   end
 end

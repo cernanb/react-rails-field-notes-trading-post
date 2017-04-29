@@ -8,6 +8,17 @@ const fetchNotebooks = () => {
     .then(data => data)
 }
 
+const fetchUserNotebooks = () => {
+  const { id } = localStorage.profile
+  return fetch(`http://localhost:3001/api/v1/users/${id}/notebooks`, {
+    headers: {
+      Authorization: `${localStorage.token}`
+    }
+  })
+    .then(res => res.json())
+    .then(data => data)
+}
+
 const fetchNotebook = (id) => {
 
   return fetch(`http://localhost:3001/api/v1/notebooks/${id}`, {
@@ -21,7 +32,7 @@ const fetchNotebook = (id) => {
 
 const createNotebook = (notebook) => {
   const newNotebook = Object.assign({}, {notebook: notebook})
-  
+
   return fetch(`http://localhost:3001/api/v1/notebooks`, {
     headers: {
       Authorization: `${localStorage.token}`,
@@ -38,5 +49,6 @@ const createNotebook = (notebook) => {
 export default {
   fetchNotebooks,
   fetchNotebook,
+  fetchUserNotebooks,
   createNotebook
 }

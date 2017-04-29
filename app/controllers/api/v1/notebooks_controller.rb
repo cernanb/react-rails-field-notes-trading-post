@@ -3,7 +3,11 @@ class Api::V1::NotebooksController < ApplicationController
 
   def index
     if logged_in?
-      render json: Notebook.all
+      if params[:user_id]
+        render json: now_user.notebooks
+      else
+        render json: Notebook.all
+      end
     else
       render json: { error: { message: "You must have a valid token!"} }, status: 500
     end

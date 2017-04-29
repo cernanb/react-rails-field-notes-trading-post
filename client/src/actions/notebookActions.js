@@ -14,6 +14,19 @@ export const getNotebooks = () => {
   }
 }
 
+export const getUserNotebooks = () => {
+
+  return (dispatch) => {
+    NotebookService.fetchUserNotebooks()
+      .then(data => {
+        dispatch({
+          type: 'USER_NOTEBOOKS_RECEIVED',
+          notebooks: data
+        })
+      })
+  }
+}
+
 export const getNotebook = (notebookId) => {
 
   return (dispatch) => {

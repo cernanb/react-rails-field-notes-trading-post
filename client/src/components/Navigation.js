@@ -18,6 +18,7 @@ const Navigation = (props) => (
       <div {...navLink}>
       <NavLink to="/" onClick={() => props.actions.logout()}>Logout</NavLink>
       <NavLink to="/notebooks">Notebooks</NavLink>
+      <NavLink to="/user/notebooks">My Notebooks</NavLink>
       <NavLink to="/notebooks/new">+ Notebooks</NavLink>
       </div>
         :
