@@ -19,6 +19,17 @@ const fetchUserNotebooks = () => {
     .then(data => data)
 }
 
+const addUserNotebook = (id) => {
+  return fetch(`http://localhost:3001/api/v1/notebooks/${id}/user_notebooks`, {
+    headers: {
+      Authorization: `${localStorage.token}`
+    },
+    method: 'POST'
+  })
+  .then(res => res.json())
+  .then(data => data)
+}
+
 const fetchNotebook = (id) => {
 
   return fetch(`http://localhost:3001/api/v1/notebooks/${id}`, {
@@ -50,5 +61,6 @@ export default {
   fetchNotebooks,
   fetchNotebook,
   fetchUserNotebooks,
-  createNotebook
+  createNotebook,
+  addUserNotebook
 }

@@ -7,6 +7,9 @@ Rails.application.routes.draw do
       resources :users do
         resources :notebooks, only: [:index]
       end
+      resources :notebooks, only: [:show] do
+        resources :user_notebooks, only: [:create]
+      end
     end
   end
 end

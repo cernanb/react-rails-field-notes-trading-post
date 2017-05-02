@@ -27,6 +27,19 @@ export const getUserNotebooks = () => {
   }
 }
 
+export const addUserNotebook = (id) => {
+  console.log(id)
+  return (dispatch) => {
+    NotebookService.addUserNotebook(id)
+      .then(data => {
+        dispatch({
+          type: 'USER_NOTEBOOK_ADDED',
+          notebooks: data
+        })
+      })
+  }
+}
+
 export const getNotebook = (notebookId) => {
 
   return (dispatch) => {
@@ -36,6 +49,7 @@ export const getNotebook = (notebookId) => {
           type: 'NOTEBOOK_RECEIVED',
           notebook: data
         })
+        browserHistory.push('/notebooks')
       })
   }
 }

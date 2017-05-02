@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import AuthService from '../services/authService'
-import { getNotebooks } from '../actions/notebookActions'
+import { getNotebooks, addUserNotebook } from '../actions/notebookActions'
 import { css } from 'glamor'
 
 const linkCSS = css({
@@ -36,6 +36,11 @@ const notebookContainerCSS = css({
 })
 
 class Notebooks extends Component {
+    // constructor() {
+    //   super()
+
+    //   this.handleClick = this.handleClick.bind(this)
+    // }
 
     componentWillMount() {
       if (!AuthService.isAuthenticated()) {
@@ -61,6 +66,7 @@ class Notebooks extends Component {
                 <p {...notebookCardTitle}>{notebook.edition}</p>
                 <img  {...imageCSS} src="https://fieldnotes.imgix.net/images/products/FNC-33-Black-Ice-A.jpg?auto=format&fit=crop&h=360&ixlib=php-1.1.0&q=55&w=400&s=00915ae492f9576f67bfa75e8fa70bcc" />
               </Link>
+              <button onClick={() => this.props.actions.addUserNotebook(notebook.id)} >Add to Collection</button>
             </div>)
         }
       </div> :
@@ -77,6 +83,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         actions: bindActionCreators({
             getNotebooks,
+            addUserNotebook
         }, dispatch)
     }
 }
