@@ -13,13 +13,12 @@ const Navigation = (props) => (
   <div {...nav}>
     <NavLink to="/">Home</NavLink>
     <NavLink to="/about">About</NavLink>
-
     { AuthService.isAuthenticated() ?
       <div {...navLink}>
       <NavLink to="/" onClick={() => props.actions.logout()}>Logout</NavLink>
       <NavLink to="/notebooks">Notebooks</NavLink>
       <NavLink to="/user/notebooks">My Notebooks</NavLink>
-      <NavLink to="/notebooks/new">+ Notebooks</NavLink>
+      {AuthService.currentUser().admin ? <NavLink to="/notebooks/new">+ Notebooks</NavLink> : ''}
       </div>
         :
       <div {...navLink}>

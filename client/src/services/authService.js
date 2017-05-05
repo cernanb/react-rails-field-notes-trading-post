@@ -44,8 +44,11 @@ const isAuthenticated = () => !!localStorage.token
 const logout = () => {
 
   localStorage.removeItem('token')
+  localStorage.removeItem('profile')
 
 }
+
+const currentUser = () => JSON.parse(localStorage.profile)
 
 
 export default {
@@ -54,5 +57,6 @@ export default {
   storeProfile,
   isAuthenticated,
   logout,
-  login
+  login,
+  currentUser
 }
