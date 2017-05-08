@@ -13,6 +13,13 @@ class NotebookForm extends Component {
         <div>
           <Field {...formCss} placeholder="Edition" name="edition" component="input" type="text"/>
         </div>
+        <div>
+          <Field {...formCss} placeholder="Company" name="company" component="select">
+            <option />
+            <option value="1">Field Notes</option>
+            <option value="2">Write Notepads</option>
+          </Field>
+        </div>
         <button type="submit">Submit</button>
       </form>
     )
