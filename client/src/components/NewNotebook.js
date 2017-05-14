@@ -17,7 +17,6 @@ class NewNotebook extends Component {
     const { createNotebook } = this.props.actions
 
     createNotebook(values)
-    // this.props.router.push('/notebooks')
   }
 
   render() {
