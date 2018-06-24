@@ -1,97 +1,71 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
+import { Link, Switch, Route } from 'react-router-dom'
 import AuthService from '../services/authService'
 import { getNotebooks, addUserNotebook } from '../actions/notebookActions'
-import { css } from 'glamor'
-
-const linkCSS = css({
-  'textDecoration': 'none',
-  color: '#999',
-  width: '80px',
-  padding: '16px',
-  ':hover': {
-    color: '#383A3F'
-  }
-})
-
-const imageCSS = css({
-   
-})
-
-const notebookCSS = css({
-  width: '33%'
-})
-
-const notebookCardTitle = css({
-  marginBottom: '-45px',
-  position: 'relative'
-})
-
-const notebookContainerCSS = css({
-  display: 'flex',
-  'flexDirection': 'row',
-  'flexWrap': 'wrap'
-})
+import NotebooksIndex from './NotebooksIndex'
+import Notebook from './Notebook'
 
 class Notebooks extends Component {
-    // constructor() {
-    //   super()
+  // constructor() {
+  //   super()
 
-    //   this.handleClick = this.handleClick.bind(this)
-    // }
+  //   this.handleClick = this.handleClick.bind(this)
+  // }
 
-    componentWillMount() {
-      if (!AuthService.isAuthenticated()) {
-        this.props.router.push('/login')
-      }
+  componentWillMount() {
+    if (!AuthService.isAuthenticated()) {
+      this.props.router.push('/login')
     }
+  }
 
-    componentDidMount() {
-      this.props.actions.getNotebooks()
-    }
-
-    render() {
-      const { children, notebooks } = this.props
-      return (
-        <div>
-          {
-            !children ?
-            <div {...notebookContainerCSS}>
-        {
-          notebooks.map(notebook => 
-            <div {...notebookCSS} key={notebook.id}>
-              <Link {...linkCSS} to={{ pathname: `/notebooks/${notebook.id}`}}>
-                <p {...notebookCardTitle}>{notebook.edition}</p>
-                <img  {...imageCSS} src="https://fieldnotes.imgix.net/images/products/FNC-33-Black-Ice-A.jpg?auto=format&fit=crop&h=360&ixlib=php-1.1.0&q=55&w=400&s=00915ae492f9576f67bfa75e8fa70bcc" />
-              </Link>
-              <button onClick={() => this.props.actions.addUserNotebook(notebook.id)} >Add to Collection</button>
-            </div>)
-        }
-      </div> :
-            <div>
-              {children}
-            </div>
-          }
-        </div>
-      )
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        actions: bindActionCreators({
-            getNotebooks,
-            addUserNotebook
-        }, dispatch)
-    }
-}
-
-const mapStateToProps = (state) => {
-  return {
-    notebooks: state.notebooks
+  render() {
+    const { notebooks } = this.props
+    return (
+      <div>
+        <Switch>
+          <Route exact path="/notebooks" component={NotebooksIndex} />
+          <Route path="/notebooks/:id" component={Notebook} />
+        </Switch>
+      </div>
+    )
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Notebooks)
+const mapDispatchToProps = dispatch => {
+  return {
+    actions: bindActionCreators(
+      {
+        addUserNotebook,
+      },
+      dispatch
+    ),
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    notebooks: state.notebooks,
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Notebooks)
+
+// <div {...notebookContainerCSS}>
+//   {notebooks.map(notebook => (
+//     <div {...notebookCSS} key={notebook.id}>
+//       <Link {...linkCSS} to={{ pathname: `/notebooks/${notebook.id}` }}>
+//         <p {...notebookCardTitle}>{notebook.edition}</p>
+//         <img
+//           {...imageCSS}
+//           src="https://fieldnotes.imgix.net/images/products/FNC-33-Black-Ice-A.jpg?auto=format&fit=crop&h=360&ixlib=php-1.1.0&q=55&w=400&s=00915ae492f9576f67bfa75e8fa70bcc"
+//         />
+//       </Link>
+//       <button onClick={() => this.props.actions.addUserNotebook(notebook.id)}>Add to Collection</button>
+//     </div>
+//   ))}
+// </div>

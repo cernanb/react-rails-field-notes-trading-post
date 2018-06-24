@@ -1,18 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import { css } from 'glamor'
 
 const linkCSS = css({
-  'textDecoration': 'none',
+  textDecoration: 'none',
   display: 'inline-block',
   color: 'ghostwhite',
   width: '80px',
   padding: '16px',
   ':hover': {
-    color: '#383A3F'
-  }
+    color: '#383A3F',
+  },
 })
 
-export default (props) => (
-  <Link {...linkCSS} {...props} />
-)
+const NavLink = props => <Link {...linkCSS} {...props} />
+
+export default NavLink

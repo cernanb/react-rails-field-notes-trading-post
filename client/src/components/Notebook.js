@@ -3,36 +3,26 @@ import { getNotebook } from '../actions/notebookActions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-
 class Notebook extends Component {
-
-  componentDidMount() {
-    this.props.actions.getNotebook(this.props.params.id)
-  }
-
   render() {
     const { notebook } = this.props
-    return (
-      <div>
-        <h3>Brand: {notebook.name} </h3>
-        <h3>Edition: {notebook.edition} </h3>
-      </div>
-    )
+    if (notebook) {
+      return (
+        <div>
+          <h3>Brand: {notebook.name} </h3>
+          <h3>Edition: {notebook.edition} </h3>
+        </div>
+      )
+    }
+    return null
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownParams) => {
+  const notebook = state.notebooks.find(notebook => notebook.id === +ownParams.match.params.id)
   return {
-    notebook: state.selectedNotebook
+    notebook,
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators({
-      getNotebook
-    }, dispatch)
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Notebook)
+export default connect(mapStateToProps)(Notebook)

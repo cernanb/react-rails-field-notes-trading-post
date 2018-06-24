@@ -1,14 +1,7 @@
 import React, { Component } from 'react'
-import { getUserNotebooks } from '../actions/notebookActions'
-import { bindActionCreators } from 'redux'
-import AuthService from '../services/authService'
 import { connect } from 'react-redux'
 import { css } from 'glamor'
 import { Link } from 'react-router-dom'
-
-const notebookCSS = css({
-  width: '33%',
-})
 
 const linkCSS = css({
   textDecoration: 'none',
@@ -22,6 +15,10 @@ const linkCSS = css({
 
 const imageCSS = css({})
 
+const notebookCSS = css({
+  width: '33%',
+})
+
 const notebookCardTitle = css({
   marginBottom: '-45px',
   position: 'relative',
@@ -33,17 +30,7 @@ const notebookContainerCSS = css({
   flexWrap: 'wrap',
 })
 
-class UserNotebooks extends Component {
-  componentWillMount() {
-    if (!AuthService.isAuthenticated()) {
-      this.props.router.push('/login')
-    }
-  }
-
-  componentDidMount() {
-    this.props.actions.getUserNotebooks()
-  }
-
+class NotebooksIndex extends Component {
   render() {
     const { notebooks } = this.props
     return (
@@ -54,9 +41,10 @@ class UserNotebooks extends Component {
               <p {...notebookCardTitle}>{notebook.edition}</p>
               <img
                 {...imageCSS}
-                src="https://fieldnotes.imgix.net/images/products/FNC-32-Lunacy-A.jpg?auto=format&fit=crop&h=360&ixlib=php-1.1.0&q=55&w=400&s=0332b5fe718344668674db1c08d05741"
+                src="https://fieldnotes.imgix.net/images/products/FNC-33-Black-Ice-A.jpg?auto=format&fit=crop&h=360&ixlib=php-1.1.0&q=55&w=400&s=00915ae492f9576f67bfa75e8fa70bcc"
               />
             </Link>
+            <button onClick={() => this.props.actions.addUserNotebook(notebook.id)}>Add to Collection</button>
           </div>
         ))}
       </div>
@@ -64,24 +52,4 @@ class UserNotebooks extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    actions: bindActionCreators(
-      {
-        getUserNotebooks,
-      },
-      dispatch
-    ),
-  }
-}
-
-const mapStateToProps = state => {
-  return {
-    notebooks: state.notebooks,
-  }
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UserNotebooks)
+export default connect(({ notebooks }) => ({ notebooks }))(NotebooksIndex)
