@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   namespace :api do
     namespace :v1 do
       post '/signup', to: 'users#signup'
@@ -10,7 +11,6 @@ Rails.application.routes.draw do
       resources :notebooks, only: [:show] do
         resources :user_notebooks, only: [:create]
       end
-
       resources: notecards
     end
   end
