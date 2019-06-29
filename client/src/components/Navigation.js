@@ -16,7 +16,7 @@ const Navigation = (props) => (
     { AuthService.isAuthenticated() ?
       <div {...navLink}>
       <NavLink to="/" onClick={() => props.actions.logout()}>Logout</NavLink>
-      <NavLink to="/notebooks">Notebooks</NavLink>
+      <NavLink to="/brands">Brands</NavLink>
       <NavLink to="/user/notebooks">My Notebooks</NavLink>
       {AuthService.currentUser().admin ? <NavLink to="/notebooks/new">+ Notebooks</NavLink> : ''}
       </div>

@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { Link, Switch, Route } from 'react-router-dom'
-import AuthService from '../services/authService'
-import { getNotebooks, addUserNotebook } from '../actions/notebookActions'
-import NotebooksIndex from './NotebooksIndex'
-import Notebook from './Notebook'
+import React, { Component } from "react"
+import { bindActionCreators } from "redux"
+import { connect } from "react-redux"
+import { Link, Switch, Route } from "react-router-dom"
+import AuthService from "../services/authService"
+import { getNotebooks, addUserNotebook } from "../actions/notebookActions"
+import NotebooksIndex from "./NotebooksIndex"
+import Notebook from "./Notebook"
 
 class Notebooks extends Component {
   // constructor() {
@@ -14,11 +14,11 @@ class Notebooks extends Component {
   //   this.handleClick = this.handleClick.bind(this)
   // }
 
-  componentWillMount() {
-    if (!AuthService.isAuthenticated()) {
-      this.props.router.push('/login')
-    }
-  }
+  // componentWillMount() {
+  //   if (!AuthService.isAuthenticated()) {
+  //     this.props.router.push('/login')
+  //   }
+  // }
 
   render() {
     const { notebooks } = this.props
@@ -37,16 +37,16 @@ const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(
       {
-        addUserNotebook,
+        addUserNotebook
       },
       dispatch
-    ),
+    )
   }
 }
 
 const mapStateToProps = state => {
   return {
-    notebooks: state.notebooks,
+    notebooks: state.notebooks
   }
 }
 
