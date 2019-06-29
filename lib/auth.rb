@@ -6,7 +6,11 @@ class Auth
   end
 
   def self.decode_token(token)
-      JWT.decode(token, ENV['AUTH_SECRET'], true, { :algorithm => ENV['AUTH_HASH_ALGO'] })
+      begin
+        JWT.decode(token, ENV['AUTH_SECRET'], true, { :algorithm => ENV['AUTH_HASH_ALGO'] })
+      rescue
+        nil
+      end
   end
 
 end
