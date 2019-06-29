@@ -12,7 +12,7 @@ gem 'puma', '~> 3.0'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
-gem 'pry'
+gem 'pry-remote'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'foreman'
 gem 'rack-cors', :require => 'rack/cors'
