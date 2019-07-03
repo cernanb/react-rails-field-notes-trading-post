@@ -12,21 +12,17 @@ class Brands extends Component {
   //   this.handleClick = this.handleClick.bind(this)
   // }
 
-  // componentWillMount() {
-  //   if (!AuthService.isAuthenticated()) {
-  //     this.props.router.push('/login')
-  //   }
-  // }
+  componentDidMount() {
+    const { getBrands } = this.props;
+    getBrands();
+  }
 
   render() {
-    const { brands } = this.props;
     return (
-      <div>
-        <Switch>
-          <Route exact path="/brands" component={BrandsIndex} />
-          {/* <Route path="/brands/:id" component={Notebook} /> */}
-        </Switch>
-      </div>
+      <Switch>
+        <Route exact path="/brands" component={BrandsIndex} />
+        {/* <Route path="/brands/:id" component={Notebook} /> */}
+      </Switch>
     );
   }
 }
@@ -35,4 +31,7 @@ const mapStateToProps = state => ({
   brands: state.brands,
 });
 
-export default connect(mapStateToProps)(Brands);
+export default connect(
+  null,
+  { getBrands }
+)(Brands);

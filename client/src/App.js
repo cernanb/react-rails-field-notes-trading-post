@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import './App.css';
+// import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import { getNotebooks } from './actions/notebookActions';
