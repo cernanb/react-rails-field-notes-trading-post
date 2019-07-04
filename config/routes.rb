@@ -10,7 +10,9 @@ Rails.application.routes.draw do
       resources :notebooks, only: [:show] do
         resources :user_notebooks, only: [:create]
       end
-      resources :brands, only: [:index]
+      resources :brands, only: [:index, :create, :new]
     end
   end
+
+  # resources :brands, only: [:new]
 end

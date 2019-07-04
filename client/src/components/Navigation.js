@@ -64,14 +64,24 @@ class Navigation extends Component {
                 My Notebooks
               </Menu.Item>
               {AuthService.currentUser().admin && (
-                <Menu.Item
-                  as={Link}
-                  to="/notebooks/new"
-                  name="new"
-                  onClick={this.handleItemClick}
-                >
-                  + Notebooks
-                </Menu.Item>
+                <>
+                  <Menu.Item
+                    as={Link}
+                    to="/notebooks/new"
+                    name="new"
+                    onClick={this.handleItemClick}
+                  >
+                    + Notebooks
+                  </Menu.Item>
+                  <Menu.Item
+                    as={Link}
+                    to="/brands/new"
+                    name="newBrand"
+                    onClick={this.handleItemClick}
+                  >
+                    + Brands
+                  </Menu.Item>
+                </>
               )}
             </>
           ) : (

@@ -8,3 +8,13 @@ export const getBrands = () => dispatch => {
     });
   });
 };
+
+export const createBrand = brand => dispatch => {
+  BrandService.createBrand(brand).then(data => {
+    dispatch({
+      type: 'BRAND_CREATED',
+      brand: data,
+    });
+    // browserHistory.push('/notebooks')
+  });
+};

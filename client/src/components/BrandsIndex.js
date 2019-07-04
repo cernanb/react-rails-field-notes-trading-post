@@ -12,7 +12,7 @@ class BrandsIndex extends Component {
             <Card>
               <Image src="/images/avatar/large/daniel.jpg" wrapped ui={false} />
               <Card.Content>
-                <Card.Header>Daniel</Card.Header>
+                <Card.Header>{brand.name}</Card.Header>
                 <Card.Meta>Joined in 2016</Card.Meta>
                 <Card.Description>
                   Daniel is a comedian living in Nashville.

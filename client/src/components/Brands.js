@@ -4,6 +4,7 @@ import { Link, Switch, Route } from 'react-router-dom';
 import AuthService from '../services/authService';
 import { getBrands } from '../actions/brandActions';
 import BrandsIndex from './BrandsIndex';
+import NewBrand from './NewBrand';
 
 class Brands extends Component {
   // constructor() {
@@ -21,7 +22,7 @@ class Brands extends Component {
     return (
       <Switch>
         <Route exact path="/brands" component={BrandsIndex} />
-        {/* <Route path="/brands/:id" component={Notebook} /> */}
+        <Route path="/brands/new" component={NewBrand} />
       </Switch>
     );
   }
