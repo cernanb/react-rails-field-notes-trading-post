@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import { getNotebooks } from './actions/notebookActions';
+import { getBrands } from './actions/brandActions';
 
 import About from './components/About';
 import Home from './components/Home';
@@ -21,6 +22,7 @@ import Navigation from './components/Navigation';
 class App extends Component {
   componentDidMount() {
     this.props.getNotebooks();
+    this.props.getBrands();
   }
 
   render() {
@@ -49,5 +51,5 @@ class App extends Component {
 
 export default connect(
   null,
-  { getNotebooks }
+  { getNotebooks, getBrands }
 )(App);
