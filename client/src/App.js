@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
 import { getNotebooks } from './actions/notebookActions';
 import { getBrands } from './actions/brandActions';
+import { setProfile } from './actions/authActions';
+import AuthService from './services/authService';
 
 import About from './components/About';
 import Home from './components/Home';
@@ -23,6 +25,11 @@ class App extends Component {
   componentDidMount() {
     this.props.getNotebooks();
     this.props.getBrands();
+
+    if (AuthService.isAuthenticated()) {
+      console.log(AuthService.currentUser);
+      this.props.setProfile(AuthService.currentUser());
+    }
   }
 
   render() {
@@ -51,5 +58,5 @@ class App extends Component {
 
 export default connect(
   null,
-  { getNotebooks, getBrands }
+  { getNotebooks, getBrands, setProfile }
 )(App);
