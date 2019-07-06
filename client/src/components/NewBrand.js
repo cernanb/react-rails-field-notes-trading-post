@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { createBrand } from '../actions/brandActions';
 import BrandForm from './BrandForm';
@@ -11,17 +10,17 @@ class NewBrand extends Component {
   //   }
   // }
 
-  submit = values => {
-    const { createBrand } = this.props;
+  submit = brand => {
+    const { createBrand, history } = this.props;
 
-    createBrand(values);
+    createBrand(brand, history);
   };
 
   render() {
     return (
       <div>
         <h1>Create a New Brand</h1>
-        <BrandForm onSubmit={this.submit} />
+        <BrandForm handleSubmit={this.submit} />
       </div>
     );
   }
