@@ -13,6 +13,7 @@ const nav = css({
   width: '100%',
   textAlign: 'center',
   background: '#F17F42',
+  marginBottom: '20px',
 });
 // let navLink = css({display: 'inline-block'})
 
@@ -26,7 +27,7 @@ class Navigation extends Component {
     const { activeItem } = this.state;
     return (
       <div>
-        <Menu pointing secondary>
+        <Menu style={{ marginBottom: '30px' }} pointing secondary>
           <Menu.Item
             as={Link}
             to="/"
