@@ -1,41 +1,75 @@
+/* eslint-disable camelcase */
 import React, { Component } from 'react';
-import { Field, reduxForm } from 'redux-form';
 import formCss from '../formCss';
 
 class NotebookForm extends Component {
-  render() {
+  state = {
+    photo_url: '',
+    name: '',
+    brand_id: null,
+  };
+
+  handleSubmit = e => {
     const { handleSubmit } = this.props;
+
+    e.preventDefault();
+    handleSubmit(this.state);
+  };
+
+  uploadFile = async e => {
+    const { files } = e.target;
+
+    const data = new FormData();
+    data.append('file', files[0]);
+    data.append('upload_preset', 'fieldnotesbrand');
+    const res = await fetch(
+      `https://api.cloudinary.com/v1_1/dyctv2fj1/image/upload`,
+      { method: 'POST', body: data }
+    );
+    const file = await res.json();
+    this.setState({ photo_url: file.secure_url });
+  };
+
+  handleChange = e => this.setState({ [e.target.name]: e.target.value });
+
+  render() {
+    const { brands } = this.props;
+    const { photo_url, name } = this.state;
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={this.handleSubmit}>
         <div>
-          <Field
+          <input
             {...formCss}
             placeholder="Name"
             name="name"
-            component="input"
             type="text"
+            onChange={this.handleChange}
+            value={name}
           />
         </div>
         <div>
-          <Field
+          <input
             {...formCss}
-            placeholder="Edition"
-            name="edition"
-            component="input"
-            type="text"
+            placeholder="Image"
+            name="photo_url"
+            type="file"
+            onChange={this.uploadFile}
           />
         </div>
+        <div>{photo_url && <img src={photo_url} alt="log" />}</div>
         <div>
-          <Field
+          <select
             {...formCss}
-            placeholder="Company"
-            name="company"
+            placeholder="Brand"
+            name="brand_id"
             component="select"
+            onChange={this.handleChange}
           >
             <option />
-            <option value="1">Field Notes</option>
-            <option value="2">Write Notepads</option>
-          </Field>
+            {brands.map(brand => (
+              <option value={brand.id}>{brand.name}</option>
+            ))}
+          </select>
         </div>
         <button type="submit">Submit</button>
       </form>
@@ -43,8 +77,8 @@ class NotebookForm extends Component {
   }
 }
 
-NotebookForm = reduxForm({
-  form: 'notebook',
-})(NotebookForm);
+// NotebookForm = reduxForm({
+//   form: 'notebook',
+// })(NotebookForm);
 
 export default NotebookForm;

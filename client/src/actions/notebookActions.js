@@ -40,12 +40,12 @@ export const getNotebook = notebookId => dispatch => {
   });
 };
 
-export const createNotebook = notebook => dispatch => {
+export const createNotebook = (notebook, history) => dispatch => {
   NotebookService.createNotebook(notebook).then(data => {
     dispatch({
       type: 'NOTEBOOK_CREATED',
       notebook: data,
     });
-    // browserHistory.push('/notebooks')
+    history.push(`/brands/${data.brand_id}`);
   });
 };
