@@ -41,7 +41,7 @@ class Api::V1::NotebooksController < ApplicationController
     end
 
     def notebook_params
-      params.require('notebook').permit(:name, :edition)
+      params.require('notebook').permit(:name, :photo_url, :brand_id)
     end
 
 end
