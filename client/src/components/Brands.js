@@ -5,34 +5,18 @@ import AuthService from '../services/authService';
 import { getBrands } from '../actions/brandActions';
 import BrandsIndex from './BrandsIndex';
 import NewBrand from './NewBrand';
+import Brand from './Brand';
 
 class Brands extends Component {
-  // constructor() {
-  //   super()
-
-  //   this.handleClick = this.handleClick.bind(this)
-  // }
-
-  componentDidMount() {
-    const { getBrands } = this.props;
-    getBrands();
-  }
-
   render() {
     return (
       <Switch>
         <Route exact path="/brands" component={BrandsIndex} />
         <Route path="/brands/new" component={NewBrand} />
+        <Route path="/brands/:id" component={Brand} />
       </Switch>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  brands: state.brands,
-});
-
-export default connect(
-  null,
-  { getBrands }
-)(Brands);
+export default Brands;
