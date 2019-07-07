@@ -18,16 +18,13 @@ export const getUserNotebooks = () => dispatch => {
   });
 };
 
-export const addUserNotebook = id => {
-  console.log(id);
-  return dispatch => {
-    NotebookService.addUserNotebook(id).then(data => {
-      dispatch({
-        type: 'USER_NOTEBOOK_ADDED',
-        notebooks: data,
-      });
+export const addUserNotebook = id => dispatch => {
+  NotebookService.addUserNotebook(id).then(data => {
+    dispatch({
+      type: 'USER_NOTEBOOK_ADDED',
+      notebook: data,
     });
-  };
+  });
 };
 
 export const getNotebook = notebookId => dispatch => {

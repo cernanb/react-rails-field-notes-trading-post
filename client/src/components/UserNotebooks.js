@@ -36,12 +36,13 @@ const notebookContainerCSS = css({
 class UserNotebooks extends Component {
   componentWillMount() {
     if (!AuthService.isAuthenticated()) {
-      this.props.router.push('/login');
+      this.props.history.push('/login');
     }
   }
 
   componentDidMount() {
-    this.props.actions.getUserNotebooks();
+    const { getUserNotebooks } = this.props;
+    getUserNotebooks();
   }
 
   render() {
@@ -65,14 +66,14 @@ class UserNotebooks extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(
-    {
-      getUserNotebooks,
-    },
-    dispatch
-  ),
-});
+// const mapDispatchToProps = dispatch => ({
+//   actions: bindActionCreators(
+//     {
+//       getUserNotebooks,
+//     },
+//     dispatch
+//   ),
+// });
 
 const mapStateToProps = state => ({
   notebooks: state.auth.profile.notebooks,
@@ -80,5 +81,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { getUserNotebooks }
 )(UserNotebooks);

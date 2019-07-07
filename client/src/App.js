@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 // import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container } from 'semantic-ui-react';
-import { getNotebooks } from './actions/notebookActions';
+import { getNotebooks, getUserNotebooks } from './actions/notebookActions';
 import { getBrands } from './actions/brandActions';
 import { setProfile } from './actions/authActions';
 import AuthService from './services/authService';
@@ -22,17 +22,30 @@ import Contact from './components/Contact';
 import Navigation from './components/Navigation';
 
 class App extends Component {
-  componentDidMount() {
-    this.props.getNotebooks();
-    this.props.getBrands();
+  state = {
+    loading: false,
+  };
 
-    if (AuthService.isAuthenticated()) {
-      console.log(AuthService.currentUser);
-      this.props.setProfile(AuthService.currentUser());
-    }
+  componentDidMount() {
+    const getData = async () => {
+      await this.setState({ loading: true });
+      if (AuthService.isAuthenticated()) {
+        await this.props.getNotebooks();
+        await this.props.getBrands();
+        await this.props.getUserNotebooks();
+
+        this.setState({ loading: true });
+        this.props.setProfile(AuthService.currentUser());
+        this.setState({ loading: false });
+      }
+      await this.setState({ loading: false });
+    };
+    getData();
   }
 
   render() {
+    const { loading } = this.state;
+    if (loading) return null;
     return (
       <Router>
         <>
@@ -58,5 +71,5 @@ class App extends Component {
 
 export default connect(
   null,
-  { getNotebooks, getBrands, setProfile }
+  { getNotebooks, getBrands, setProfile, getUserNotebooks }
 )(App);
