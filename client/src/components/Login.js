@@ -1,45 +1,45 @@
-import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-import { login } from '../actions/authActions'
-import AuthService from '../services/authService'
-import buttonCss from '../buttonCss'
-import formCss from '../formCss'
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { login } from '../actions/authActions';
+import AuthService from '../services/authService';
+import buttonCss from '../buttonCss';
+import formCss from '../formCss';
 
 class Login extends Component {
-  constructor(){
-    super()
-    this.input = {}
+  constructor() {
+    super();
+    this.input = {};
   }
 
   componentWillMount() {
     if (AuthService.isAuthenticated()) {
-      this.props.router.push('/')
+      this.props.history.push('/');
     }
   }
 
   componentDidUpdate() {
     if (AuthService.isAuthenticated()) {
-      this.props.router.push('/')
+      this.props.history.push('/');
     }
   }
 
   handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
 
-    const { input } = this
-    const { login } = this.props.actions
+    const { input } = this;
+    const { login } = this.props.actions;
 
-    let user = {}
+    const user = {};
 
-    for (let key of Object.keys(input)) {
-      let value = input[key].value.trim()
-      if (!!value) {
-        user[key] = value
-        continue
+    for (const key of Object.keys(input)) {
+      const value = input[key].value.trim();
+      if (value) {
+        user[key] = value;
+        continue;
       }
     }
-    return login(user)
+    return login(user);
   }
 
   render() {
@@ -47,27 +47,41 @@ class Login extends Component {
       <div>
         <h1>{this.props.auth.err_message}</h1>
         <form onSubmit={e => this.handleSubmit(e)}>
-          <input {...formCss} type="text" ref={input => this.input.username = input} placeholder="username" /> <br /> <br />
-          <input {...formCss} type="password" ref={input => this.input.password = input} placeholder="password" /> <br /> <br />
+          <input
+            {...formCss}
+            type="text"
+            ref={input => (this.input.username = input)}
+            placeholder="username"
+          />{' '}
+          <br /> <br />
+          <input
+            {...formCss}
+            type="password"
+            ref={input => (this.input.password = input)}
+            placeholder="password"
+          />{' '}
+          <br /> <br />
           <input {...buttonCss} type="submit" />
         </form>
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    auth: state.auth
-  }
-}
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        actions: bindActionCreators({
-            login,
-        }, dispatch)
-    }
-}
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    {
+      login,
+    },
+    dispatch
+  ),
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

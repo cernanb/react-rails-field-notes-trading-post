@@ -3,6 +3,7 @@ import AuthService from '../services/authService';
 export const signup = user => dispatch => {
   AuthService.signup(user)
     .then(data => {
+      if (data.errors) throw new Error(data.errors.message);
       const { profile, token } = data;
 
       AuthService.storeToken(token);
@@ -13,7 +14,7 @@ export const signup = user => dispatch => {
         profile,
       });
     })
-    .catch(err => err);
+    .catch(err => console.log(err));
 };
 
 export const setProfile = profile => ({
