@@ -5,7 +5,7 @@ const fetchNotebooks = () =>
     },
   })
     .then(res => res.json())
-    .then(data => data);
+    .then(({ data }) => data);
 
 const fetchUserNotebooks = () => {
   const { id } = localStorage.profile;
@@ -15,20 +15,27 @@ const fetchUserNotebooks = () => {
     },
   })
     .then(res => res.json())
-    .then(data => data);
+    .then(({ data }) => data);
 };
 
-const addUserNotebook = id =>
-  fetch(`http://localhost:3001/api/v1/notebooks/${id}/user_notebooks`, {
+const addUserNotebook = userNotebook => {
+  const newUserNotebook = Object.assign({}, { user_notebook: userNotebook });
+
+  return fetch(`http://localhost:3001/api/v1/user_notebooks`, {
     headers: {
       Authorization: `${localStorage.token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
     },
     method: 'POST',
+    body: JSON.stringify(newUserNotebook),
   })
     .then(res => res.json())
     .then(data => data);
+};
 
-const fetchNotebook = id => fetch(`http://localhost:3001/api/v1/notebooks/${id}`, {
+const fetchNotebook = id =>
+  fetch(`http://localhost:3001/api/v1/notebooks/${id}`, {
     headers: {
       Authorization: `${localStorage.token}`,
     },
@@ -43,7 +50,7 @@ const createNotebook = notebook => {
     headers: {
       Authorization: `${localStorage.token}`,
       Accept: 'application/json',
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
     method: 'POST',
     body: JSON.stringify(newNotebook),

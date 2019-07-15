@@ -9,7 +9,7 @@ class BrandsIndex extends Component {
     return (
       <Grid columns={3}>
         {brands.map(brand => (
-          <Grid.Column>
+          <Grid.Column key={brand.id}>
             <Card>
               <Image src={brand.photo_url} wrapped ui={false} />
               <Card.Content>
@@ -20,12 +20,6 @@ class BrandsIndex extends Component {
                 <Card.Description>
                   Daniel is a comedian living in Nashville.
                 </Card.Description>
-              </Card.Content>
-              <Card.Content extra>
-                <a>
-                  <Icon name="user" />
-                  10 Friends
-                </a>
               </Card.Content>
             </Card>
           </Grid.Column>

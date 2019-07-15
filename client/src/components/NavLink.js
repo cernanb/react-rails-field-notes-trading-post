@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { css } from 'glamor';
 
 // const linkCSS = css({
 //   textDecoration: 'none',

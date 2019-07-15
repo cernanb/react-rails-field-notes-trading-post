@@ -16,6 +16,8 @@ gem 'pry-remote'
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'foreman'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'fast_jsonapi'
+
 
 
 

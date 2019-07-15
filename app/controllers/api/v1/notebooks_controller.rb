@@ -4,9 +4,9 @@ class Api::V1::NotebooksController < ApplicationController
   def index
     if logged_in?
       if params[:user_id]
-        render json: now_user.notebooks
+        render json: UserNotebookSerializer.new(now_user.user_notebooks).serialized_json
       else
-        render json: Notebook.all
+        render json: NotebookSerializer.new(Notebook.all).serialized_json
       end
     else
       render json: { error: { message: "You must have a valid token!"} }, status: 500

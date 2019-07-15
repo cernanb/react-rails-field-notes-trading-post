@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link, Switch, Route } from 'react-router-dom';
-import AuthService from '../services/authService';
-import { getBrands } from '../actions/brandActions';
+import { Switch, Route } from 'react-router-dom';
 import BrandsIndex from './BrandsIndex';
 import NewBrand from './NewBrand';
 import Brand from './Brand';

@@ -7,9 +7,8 @@ Rails.application.routes.draw do
       resources :users do
         resources :notebooks, only: [:index]
       end
-      resources :notebooks, only: [:show] do
-        resources :user_notebooks, only: [:create]
-      end
+      resources :notebooks, only: [:show] 
+      resources :user_notebooks, only: [:create, :index]
       resources :brands, only: [:index, :create, :new]
     end
   end

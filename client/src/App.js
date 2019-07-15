@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -12,10 +12,8 @@ import About from './components/About';
 import Home from './components/Home';
 import Signup from './components/Signup';
 import Login from './components/Login';
-import Notebooks from './components/Notebooks';
 import Brands from './components/Brands';
 import UserNotebooks from './components/UserNotebooks';
-import Notebook from './components/Notebook';
 import NewNotebook from './components/NewNotebook';
 import Details from './components/Details';
 import Contact from './components/Contact';
@@ -29,9 +27,9 @@ class App extends Component {
   componentDidMount() {
     const getData = async () => {
       await this.setState({ loading: true });
+      await this.props.getNotebooks();
+      await this.props.getBrands();
       if (AuthService.isAuthenticated()) {
-        await this.props.getNotebooks();
-        await this.props.getBrands();
         await this.props.getUserNotebooks();
 
         this.setState({ loading: true });

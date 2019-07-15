@@ -1,11 +1,11 @@
-import React, { Component } from "react"
-import { bindActionCreators } from "redux"
-import { connect } from "react-redux"
-import { Link, Switch, Route } from "react-router-dom"
-import AuthService from "../services/authService"
-import { getNotebooks, addUserNotebook } from "../actions/notebookActions"
-import NotebooksIndex from "./NotebooksIndex"
-import Notebook from "./Notebook"
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { Link, Switch, Route } from 'react-router-dom';
+import AuthService from '../services/authService';
+import { getNotebooks, addUserNotebook } from '../actions/notebookActions';
+import NotebooksIndex from './NotebooksIndex';
+import Notebook from './Notebook';
 
 class Notebooks extends Component {
   // constructor() {
@@ -21,7 +21,7 @@ class Notebooks extends Component {
   // }
 
   render() {
-    const { notebooks } = this.props
+    const { notebooks } = this.props;
     return (
       <div>
         <Switch>
@@ -29,31 +29,27 @@ class Notebooks extends Component {
           <Route path="/notebooks/:id" component={Notebook} />
         </Switch>
       </div>
-    )
+    );
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    actions: bindActionCreators(
-      {
-        addUserNotebook
-      },
-      dispatch
-    )
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(
+    {
+      addUserNotebook,
+    },
+    dispatch
+  ),
+});
 
-const mapStateToProps = state => {
-  return {
-    notebooks: state.notebooks
-  }
-}
+const mapStateToProps = state => ({
+  notebooks: state.notebooks,
+});
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Notebooks)
+)(Notebooks);
 
 // <div {...notebookContainerCSS}>
 //   {notebooks.map(notebook => (

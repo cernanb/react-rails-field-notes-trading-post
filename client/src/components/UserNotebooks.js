@@ -1,85 +1,91 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
+import { Button, Card, Image, Grid } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { css } from 'glamor';
-import { Link } from 'react-router-dom';
 import AuthService from '../services/authService';
-import { getUserNotebooks } from '../actions/notebookActions';
-
-const notebookCSS = css({
-  width: '33%',
-});
-
-const linkCSS = css({
-  textDecoration: 'none',
-  color: '#999',
-  width: '80px',
-  padding: '16px',
-  ':hover': {
-    color: '#383A3F',
-  },
-});
-
-const imageCSS = css({});
-
-const notebookCardTitle = css({
-  marginBottom: '-45px',
-  position: 'relative',
-});
-
-const notebookContainerCSS = css({
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-});
 
 class UserNotebooks extends Component {
   componentWillMount() {
     if (!AuthService.isAuthenticated()) {
-      this.props.history.push('/login');
+      const { history } = this.props;
+      history.push('/login');
     }
-  }
-
-  componentDidMount() {
-    const { getUserNotebooks } = this.props;
-    getUserNotebooks();
   }
 
   render() {
     const { notebooks } = this.props;
-
-    if (!notebooks) {
+    if (!notebooks && notebooks.length === 0) {
       return null;
     }
     return (
-      <div {...notebookContainerCSS}>
-        {notebooks.map(notebook => (
-          <div {...notebookCSS} key={notebook.id}>
-            <Link {...linkCSS} to={{ pathname: `/notebooks/${notebook.id}` }}>
-              <p {...notebookCardTitle}>{notebook.edition}</p>
-              <img {...imageCSS} src={notebook.photo_url} />
-            </Link>
-          </div>
-        ))}
-      </div>
+      <>
+        <h2>My Collection</h2>
+        <Grid columns={4}>
+          {notebooks.map(notebook => (
+            <Grid.Column key={notebook.id}>
+              <Card style={{ padding: '15px', height: '350px' }}>
+                <Image
+                  centered
+                  size="small"
+                  src={notebook.photo_url && notebook.photo_url}
+                />
+                <Card.Content>
+                  <Card.Header>{notebook.name}</Card.Header>
+                  {notebook.statuses.map(s => (
+                    <Card.Description key={s.status}>
+                      {s.status.toUpperCase()}: {s.quantity}
+                    </Card.Description>
+                  ))}
+                </Card.Content>
+                <Card.Content extra>
+                  <Button basic color="red">
+                    Remove from Collection
+                  </Button>
+                </Card.Content>
+              </Card>
+            </Grid.Column>
+          ))}
+        </Grid>
+      </>
     );
   }
 }
 
-// const mapDispatchToProps = dispatch => ({
-//   actions: bindActionCreators(
-//     {
-//       getUserNotebooks,
-//     },
-//     dispatch
-//   ),
-// });
-
 const mapStateToProps = state => ({
-  notebooks: state.auth.profile.notebooks,
+  notebooks: state.notebooks.userNotebooks.reduce((accum, notebook) => {
+    if (
+      !accum.find(
+        n =>
+          n.relationships.notebook.data.id ===
+          notebook.relationships.notebook.data.id
+      )
+    ) {
+      const relatedNotebook =
+        state.notebooks.allNotebooks.find(
+          n => notebook.relationships.notebook.data.id === n.id
+        ) || {};
+      const { attributes } = relatedNotebook;
+      const transformed = {
+        ...attributes,
+        ...notebook,
+        id: notebook.id,
+        statuses: [{ ...notebook.attributes }],
+        // photo_url: notebook,
+      };
+      return accum.concat(transformed);
+    }
+    return accum.map(n =>
+      n.relationships.notebook.data.id ===
+      notebook.relationships.notebook.data.id
+        ? { ...n, statuses: n.statuses.concat(notebook.attributes) }
+        : n
+    );
+  }, []),
 });
 
-export default connect(
-  mapStateToProps,
-  { getUserNotebooks }
-)(UserNotebooks);
+UserNotebooks.propTypes = {
+  history: PropTypes.object,
+  notebooks: PropTypes.array,
+};
+
+export default connect(mapStateToProps)(UserNotebooks);

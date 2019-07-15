@@ -1,21 +1,10 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { css } from 'glamor';
 import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { logout } from '../actions/authActions';
 import AuthService from '../services/authService';
 import NavLink from './NavLink';
-
-const nav = css({
-  color: 'red',
-  width: '100%',
-  textAlign: 'center',
-  background: '#F17F42',
-  marginBottom: '20px',
-});
-// let navLink = css({display: 'inline-block'})
 
 class Navigation extends Component {
   state = { activeItem: 'home' };
@@ -42,14 +31,8 @@ class Navigation extends Component {
             active={activeItem === 'about'}
             onClick={this.handleItemClick}
           />
-          {AuthService.isAuthenticated() ? (
+          {AuthService.isAuthenticated() && (
             <>
-              <Menu.Item
-                as={Link}
-                to="/"
-                name="logout"
-                onClick={() => logout()}
-              />
               <Menu.Item
                 as={Link}
                 to="/brands"
@@ -85,12 +68,24 @@ class Navigation extends Component {
                 </>
               )}
             </>
-          ) : (
-            <div>
-              <NavLink to="/signup">Signup</NavLink>
-              <NavLink to="/login">Login</NavLink>
-            </div>
           )}
+          <Menu.Menu position="right">
+            {AuthService.isAuthenticated() ? (
+              <>
+                <Menu.Item
+                  as={Link}
+                  to="/"
+                  name="logout"
+                  onClick={() => logout()}
+                />
+              </>
+            ) : (
+              <>
+                <Menu.Item as={Link} to="/login" name="login" />
+                <Menu.Item as={Link} to="/signup" name="signup" />
+              </>
+            )}
+          </Menu.Menu>
         </Menu>
       </div>
     );
