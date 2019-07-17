@@ -48,19 +48,19 @@ class App extends Component {
       <Router>
         <>
           <Navigation />
-          <Container>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/about" component={About} />
-              <Route path="/about/details" component={Details} />
-              <Route path="/about/contact" component={Contact} />
-              <Route path="/signup" component={Signup} />
-              <Route path="/login" component={Login} />
-              <Route path="/notebooks/new" component={NewNotebook} />
-              <Route path="/user/notebooks" component={UserNotebooks} />
-              <Route path="/brands" component={Brands} />
-            </Switch>
-          </Container>
+          {/* <Container> */}
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/about" component={About} />
+            <Route path="/about/details" component={Details} />
+            <Route path="/about/contact" component={Contact} />
+            <Route path="/signup" component={Signup} />
+            <Route path="/login" component={Login} />
+            <Route path="/notebooks/new" component={NewNotebook} />
+            <Route path="/user/notebooks" component={UserNotebooks} />
+            <Route path="/brands" component={Brands} />
+          </Switch>
+          {/* </Container> */}
         </>
       </Router>
     );

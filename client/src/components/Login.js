@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Form, Button, Container } from 'semantic-ui-react';
 import { login } from '../actions/authActions';
 import AuthService from '../services/authService';
 import buttonCss from '../buttonCss';
@@ -9,7 +9,7 @@ import formCss from '../formCss';
 class Login extends Component {
   constructor() {
     super();
-    this.input = {};
+    this.state = { username: '', password: '' };
   }
 
   componentWillMount() {
@@ -27,26 +27,43 @@ class Login extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const { input } = this;
-    const { login } = this.props.actions;
+    const { login } = this.props;
 
-    const user = {};
+    const user = this.state;
 
-    for (const key of Object.keys(input)) {
-      const value = input[key].value.trim();
-      if (value) {
-        user[key] = value;
-        continue;
-      }
-    }
     return login(user);
   }
 
   render() {
+    const { username, password } = this.state;
+    const { auth } = this.props;
     return (
-      <div>
-        <h1>{this.props.auth.err_message}</h1>
-        <form onSubmit={e => this.handleSubmit(e)}>
+      <Container>
+        <h1>{auth.err_message}</h1>
+        <Form onSubmit={e => this.handleSubmit(e)}>
+          <Form.Field>
+            <label>Username</label>
+            <input
+              onChange={e => this.setState({ [e.target.name]: e.target.value })}
+              name="username"
+              value={username}
+              placeholder="Username"
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Password</label>
+            <input
+              type="password"
+              onChange={e => this.setState({ [e.target.name]: e.target.value })}
+              name="password"
+              value={password}
+              placeholder="Password"
+            />
+          </Form.Field>
+
+          <Button type="submit">Submit</Button>
+        </Form>
+        {/* <form>
           <input
             {...formCss}
             type="text"
@@ -62,8 +79,8 @@ class Login extends Component {
           />{' '}
           <br /> <br />
           <input {...buttonCss} type="submit" />
-        </form>
-      </div>
+        </form> */}
+      </Container>
     );
   }
 }
@@ -72,16 +89,7 @@ const mapStateToProps = state => ({
   auth: state.auth,
 });
 
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(
-    {
-      login,
-    },
-    dispatch
-  ),
-});
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { login }
 )(Login);
