@@ -1,87 +1,82 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { signup } from '../actions/authActions';
-import AuthService from '../services/authService';
+import React, { Component } from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { Container, Form, Button } from "semantic-ui-react";
+import { signup } from "../actions/authActions";
+import AuthService from "../services/authService";
 
 class Signup extends Component {
   constructor() {
     super();
     this.input = {};
+    this.state = { username: "", password: "", email: "" };
   }
 
   componentWillMount() {
     if (AuthService.isAuthenticated()) {
-      this.props.history.push('/');
+      this.props.history.push("/");
     }
   }
 
   componentDidUpdate() {
     if (AuthService.isAuthenticated()) {
-      this.props.history.push('/');
+      this.props.history.push("/");
     }
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
-    const { input } = this;
-    const { signup } = this.props.actions;
+    const { signup } = this.props;
 
-    const user = {};
+    const user = this.state;
 
-    for (const key of Object.keys(input)) {
-      const value = input[key].value.trim();
-      if (value) {
-        user[key] = value;
-        continue;
-      }
-    }
     return signup(user);
   }
 
   render() {
     return (
-      <div>
-        <form onSubmit={e => this.handleSubmit(e)}>
-          <input
-            type="text"
-            ref={input => (this.input.username = input)}
-            placeholder="username"
-          />{' '}
-          <br /> <br />
-          <input
-            type="text"
-            ref={input => (this.input.email = input)}
-            placeholder="email"
-          />{' '}
-          <br /> <br />
-          <input
-            type="password"
-            ref={input => (this.input.password = input)}
-            placeholder="password"
-          />
-          <input type="submit" />
-        </form>
-      </div>
+      <Container>
+        <Form onSubmit={e => this.handleSubmit(e)}>
+          <Form.Field>
+            <label>Username</label>
+            <input
+              type="text"
+              onChange={e => this.setState({ [e.target.name]: e.target.value })}
+              name="username"
+              placeholder="Username"
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Email</label>
+            <input
+              type="text"
+              onChange={e => this.setState({ [e.target.name]: e.target.value })}
+              name="email"
+              placeholder="Email"
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Password</label>
+            <input
+              type="password"
+              onChange={e => this.setState({ [e.target.name]: e.target.value })}
+              name="password"
+              placeholder="password"
+            />
+          </Form.Field>
+          <Button type="submit">Submit</Button>
+        </Form>
+      </Container>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth,
-});
-
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(
-    {
-      signup,
-    },
-    dispatch
-  ),
+  auth: state.auth
 });
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { signup }
 )(Signup);
