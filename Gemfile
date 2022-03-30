@@ -8,7 +8,7 @@ end
 
 gem 'rails', '~> 5.2.0'
 gem 'pg', '~> 0.18'
-gem 'puma', '~> 3.0'
+gem 'puma', '~> 4.3'
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
